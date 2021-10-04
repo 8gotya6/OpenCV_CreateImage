@@ -53,7 +53,7 @@ def create_defect_sample(img_width, img_height, process_width, process_pos_range
         
         if is_save:
             check_path(save_dir)
-            fullpath = os.path.join(save_dir, f'{current_time}_{all_imgs[img_name]["label"]}_{img_name}.jpg')
+            fullpath = os.path.join(save_dir, f'{current_time}_{img_name}_{all_imgs[img_name]["label"]}.jpg')
             cv2.imwrite(fullpath, all_imgs[img_name]['img'])
 
         img_num += 1
