@@ -31,19 +31,21 @@ def create_defect_sample(img_width, img_height, process_width, process_pos_range
         end_point = (start_col, img_height)
         img = cv2.line(img, start_point, end_point, (0, 0, 0), thickness=process_width)
 
-        # add random shape defect
-        new_defect_size = np.random.randint(30, 100, size=1)[0]
-        new_defect = inverse_img(create_particle(new_defect_size))
-        shift_pos = [
-            np.random.randint(0, img_width - new_defect_size, size=1)[0], 
-            np.random.randint(0, img_height - new_defect_size, size=1)[0]
-        ]
-        img = add_new_defect(img, new_defect, shift_pos)
-
         if defect_qty == 0:
             label = 'good'
         else:
             label = 'bad'
+
+        # add random shape defect
+        if label == 'bad':
+            new_defect_size = np.random.randint(30, 100, size=1)[0]
+            new_defect = inverse_img(create_particle(new_defect_size))
+            shift_pos = [
+                np.random.randint(0, img_width - new_defect_size, size=1)[0], 
+                np.random.randint(0, img_height - new_defect_size, size=1)[0]
+            ]
+            img = add_new_defect(img, new_defect, shift_pos)
+
 
         img_name = str(img_num).zfill(4)
         all_imgs[img_name] = {
